@@ -4,10 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import FilenameGenerator from './FileNameGenerator'
+import {Provider} from "react-redux";
+import myDataStore from './myDataStore';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <FilenameGenerator/>
+    <Provider store={myDataStore}>
+      <FilenameGenerator/>
+    </Provider>
+    
     {/* <App /> */}
   </React.StrictMode>
 );
