@@ -1,0 +1,63 @@
+export let formData = {
+	listOfRows: [0],
+};
+export let partsDataBase;
+export const appState = {
+	fileName: '',
+	hideFileNameGenerator: false,
+	showTableButtons: false,
+
+};
+
+export const loadPartsDatabse = () => {	//load the parts database into the local environment if it's not loaded
+	fetch('./parts_database.json').then(data => data.json()).then(data => {
+		partsDataBase = data;
+		console.log('loaded database: ' + Object.keys(partsDataBase))
+		formData['parts_database_loaded'] = true;
+	});
+};
+export const loadListOfCommonParts = (fileName) => {	//load data from a json object in a file and load into the local object
+	fetch('./common_parts/' + fileName).then(data => data.json()).then(data => {
+		formData = data;
+		console.log('loaded common parts into formData.');
+		console.log(formData['listOfRows']);
+		localStorage.setItem('formData', JSON.stringify(data));
+});
+}
+export const fillFieldsWithData = () => {	//take data from the data object and put into corresponding fields
+	formData.listOfRows.forEach(row => {
+		if(formData[row] !== undefined){
+			document.querySelector('#quan'+row).value = formData[row]['quan']
+			document.querySelector('#part'+row).value = formData[row]['part'] 
+			document.querySelector('#desc'+row).value = formData[row]['desc']
+			document.querySelector('#lctn'+row).value = formData[row]['lctn']
+			document.querySelector('#cost'+row).value = formData[row]['cost']
+			document.querySelector('#prce'+row).value = formData[row]['prce']
+			document.querySelector('#rmrk'+row).value = formData[row]['rmrk']
+	
+		}
+	});
+}
+export const loadFormData = () => {	//load data from the existing fields into the data object for saving purposes
+	formData.listOfRows.forEach(row => {
+		if(formData[row] === undefined)formData[row] = {};
+		formData[row]['quan'] = document.querySelector('#quan'+row).value;
+		formData[row]['part'] = document.querySelector('#part'+row).value;
+		formData[row]['desc'] = document.querySelector('#desc'+row).value;
+		formData[row]['lctn'] = document.querySelector('#lctn'+row).value;
+		formData[row]['cost'] = document.querySelector('#cost'+row).value;
+		formData[row]['prce'] = document.querySelector('#prce'+row).value;
+		formData[row]['rmrk'] = document.querySelector('#rmrk'+row).value;
+		
+	});
+};
+
+export const isPartsAndQuantityFull = () => {
+	loadFormData();
+	console.log('running ispartsAndQuantityFull');
+	for(let row in formData['listOfRows']){
+		if(formData[row]['quan'] === '')return false;
+		if(formData[row]['part'] === '')return false;
+	}
+	return true;
+}
