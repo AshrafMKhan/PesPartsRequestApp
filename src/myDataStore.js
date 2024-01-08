@@ -5,3 +5,4 @@ export default configureStore({
   // reducer: {accountHandlers: accountReducer}
   reducer: appDataReducers
 })
+

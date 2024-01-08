@@ -16,9 +16,9 @@ export const loadPartsDatabase = () => {	//load the parts database into the loca
 	fetch('./parts_database.json').then(data => data.json()).then(data => {
 		partsDataBase = data;
 		console.log('loaded database: ' + Object.keys(partsDataBase))
-		formData['parts_database_loaded'] = true;
 	});
 };
+
 export const loadListOfCommonParts = (fileName) => {	//load data from a json object in a file and load into the local object
 	fetch('./common_parts/' + fileName).then(data => data.json()).then(data => {
 		formData = data;
@@ -33,7 +33,8 @@ export const loadListOfCommonParts = (fileName) => {	//load data from a json obj
 	
 	
 }
-export const fillFieldsWithData = () => {	//take data from the data object and put into corresponding fields
+export const fillFieldsWithData = () => {	//take data from the data object and put into corresponding fields on initial form load only
+	if(formData['listOfRows'].length === 1)formData = JSON.parse(localStorage.getItem('formData'));
 	formData.listOfRows.forEach(row => {
 		if(formData[row] !== undefined){
 			document.querySelector('#quan'+row).value = formData[row]['quan']
@@ -48,7 +49,9 @@ export const fillFieldsWithData = () => {	//take data from the data object and p
 	});
 }
 export const loadFormData = () => {	//load data from the existing fields into the data object for saving purposes
-	formData.listOfRows.forEach(row => {
+	const rows = localStorage.getItem('tableRows').split(',');
+	rows.forEach(row => {
+	//formData.listOfRows.forEach(row => {
 		if(formData[row] === undefined)formData[row] = {};
 		formData[row]['quan'] = document.querySelector('#quan'+row).value;
 		formData[row]['part'] = document.querySelector('#part'+row).value;
@@ -59,12 +62,14 @@ export const loadFormData = () => {	//load data from the existing fields into th
 		formData[row]['rmrk'] = document.querySelector('#rmrk'+row).value;
 		
 	});
+	return rows;
 };
 
 export const isPartsAndQuantityFull = () => {
-	loadFormData();
+	const rows = loadFormData();
+
 	console.log('running ispartsAndQuantityFull');
-	for(let row in formData['listOfRows']){
+	for(let row in rows){
 		if(formData[row]['quan'] === '')return false;
 		if(formData[row]['part'] === '')return false;
 	}

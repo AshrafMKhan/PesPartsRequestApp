@@ -7,7 +7,7 @@ import myDataStore from './myDataStore';
 import { useDispatch } from 'react-redux';
 import { setFormData, setCurrentPartsList } from './myReducers';
 function FileNameGenerator(){
-  const dispatch = useDispatch();
+  
   const [list, setList] = useState([0]);
   const [systemType, setSystemType] = useState('MX6100');
   const handleSystemChange = (event) => {
@@ -32,7 +32,10 @@ function FileNameGenerator(){
   const createPartsList = (e) => {
     e.preventDefault();
     fetch('./common_parts/MX6100_Input_Hopper').then(data => data.json()).then(data => {
-      dispatch(setFormData(data));
+      localStorage.setItem('formData', JSON.stringify(data));
+      localStorage.setItem('tableRows', data['listOfRows']);
+      
+      console.log('form data from local storage: ' + JSON.parse(localStorage.getItem('formData')));
       const serializedBody = JSON.stringify(myDataStore.getState().formData);
       const fetchOptions = {
       method: 'POST',
@@ -43,15 +46,13 @@ function FileNameGenerator(){
       body: serializedBody // (5)
       };
       const fileName = systemType + '_' + moduleType + '_' + systemSerialNumber + '_' + moduleSerialNumber;
-      dispatch(setCurrentPartsList(fileName));
+      localStorage.setItem('currentFileName', fileName);
       fetch('/savePartsList?fileName=' + fileName, fetchOptions).then(response => {
         if(response['ok'] === false)alert('Could not save the file. An error occured')
-        // if(list.length === 1)setList([]);
-        // else setList([0]);
+        if(list.length === 1)setList([]);
+        else setList([0]);
       }).catch(e => {console.log('an error occured while trying to write the file.')});
     });
-      // if(list.length === 1)setList([]);
-      // else setList([0]);
   
   };
 
@@ -61,10 +62,9 @@ function FileNameGenerator(){
   };
 
   return <div id='newpartslist'>
-    Current Parts List: {myDataStore.getState().current_parts_list}
-    {!myDataStore.getState().current_parts_list?
+    Current Parts List: {localStorage.getItem('currentFileName')}
+    {!localStorage.getItem('currentFileName')?
       <div>
-        
         <label>System Type:
           <select value={systemType} onChange={handleSystemChange}>
             <option value="MX6100">MX6100</option>
@@ -83,8 +83,7 @@ function FileNameGenerator(){
         <label>Module Serial# <input value={moduleSerialNumber} type='text' onChange={handleModuleSerialNumberChange} /></label>
         <button onClick={createPartsList}>Create parts list</button>
       </div>
-    :<div><button>Open Existing File</button><button onClick={savePartsList}>Save This File</button></div>} 
-    {/* {?<PartsTable/>:<></>} */}
+    :<div><button>Open Existing File</button><button onClick={savePartsList}>Save This File</button><br></br><PartsTable/></div>} 
     </div>
 }
 export default FileNameGenerator;
