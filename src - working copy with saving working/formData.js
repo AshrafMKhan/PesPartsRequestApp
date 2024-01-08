@@ -19,7 +19,21 @@ export const loadPartsDatabase = () => {	//load the parts database into the loca
 		console.log('loaded database: ' + Object.keys(partsDataBase))
 	});
 };
+/*
+export const loadListOfCommonParts = (fileName) => {	//load data from a json object in a file and load into the local object
+	fetch('./common_parts/' + fileName).then(data => data.json()).then(data => {
+		formData = data;
+		console.log('loaded common parts into formData.');
+		console.log('formData:' + JSON.stringify(formData));
+		return data;
+		//const dispatch = useDispatch();
+		//dispatch(setFormData(formData));
+		//localStorage.setItem('formData', JSON.stringify(data));
+	});
 
+	
+}
+*/
 export const fillFieldsWithData = () => {	//take data from the data object and put into corresponding fields on initial form load only
 	if(formData['listOfRows'].length === 1)formData = JSON.parse(localStorage.getItem('formData'));
 	formData.listOfRows.forEach(row => {

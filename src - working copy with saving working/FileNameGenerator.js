@@ -2,7 +2,7 @@ import {useState} from 'react'
 import { loadFormData, savePartsList } from './formData';
 import PartsTable from './PartsTable';
 import myDataStore from './myDataStore';
-import { formData } from './formData';
+
 function FileNameGenerator(){
   
   const [list, setList] = useState([0]);
@@ -33,7 +33,7 @@ function FileNameGenerator(){
       localStorage.setItem('tableRows', data['listOfRows']);
 
       console.log('form data from local storage: ' + JSON.parse(localStorage.getItem('formData')));
-      const serializedBody = JSON.stringify(data);  //myDataStore.getState().formData);
+      const serializedBody = JSON.stringify(myDataStore.getState().formData);
       const fetchOptions = {
       method: 'POST',
       headers: {
@@ -58,16 +58,6 @@ function FileNameGenerator(){
     savePartsList(localStorage.getItem('currentFileName'));
   };
 
-  const handleMakeNewFile = (e) => {
-    localStorage.setItem('currentFileName', '');
-    // for(let key in formData){
-    //   if(key !== 'listOfRows')delete(key);
-    // }
-    formData['listOfRows'] = [0];
-    if(list.length === 1)setList([]);
-    else setList([0]);
-  }
-
   return <div id='newpartslist'>
     Current Parts List: {localStorage.getItem('currentFileName')}
     {!localStorage.getItem('currentFileName')?
@@ -90,7 +80,7 @@ function FileNameGenerator(){
         <label>Module Serial# <input value={moduleSerialNumber} type='text' onChange={handleModuleSerialNumberChange} /></label>
         <button onClick={createPartsList}>Create parts list</button>
       </div>
-    :<div><button onClick={handleMakeNewFile}>Make a new File</button><button>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><br></br><PartsTable/></div>} 
+    :<div><button>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><br></br><PartsTable/></div>} 
     </div>
 }
 export default FileNameGenerator;
