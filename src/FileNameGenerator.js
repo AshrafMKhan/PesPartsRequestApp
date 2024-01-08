@@ -1,11 +1,8 @@
 import {useState} from 'react'
-import {formData} from './formData';
-import { loadListOfCommonParts, loadFormData, savePartsList } from './formData';
+import { loadFormData, savePartsList } from './formData';
 import PartsTable from './PartsTable';
-import { appState } from './formData';
 import myDataStore from './myDataStore';
-import { useDispatch } from 'react-redux';
-import { setFormData, setCurrentPartsList } from './myReducers';
+
 function FileNameGenerator(){
   
   const [list, setList] = useState([0]);
@@ -34,7 +31,7 @@ function FileNameGenerator(){
     fetch('./common_parts/MX6100_Input_Hopper').then(data => data.json()).then(data => {
       localStorage.setItem('formData', JSON.stringify(data));
       localStorage.setItem('tableRows', data['listOfRows']);
-      
+
       console.log('form data from local storage: ' + JSON.parse(localStorage.getItem('formData')));
       const serializedBody = JSON.stringify(myDataStore.getState().formData);
       const fetchOptions = {
@@ -56,9 +53,9 @@ function FileNameGenerator(){
   
   };
 
-  const savePartsList = (e) => {
+  const handleSavePartsList = (e) => {
     loadFormData();
-    savePartsList(appState['fileName']);
+    savePartsList(localStorage.getItem('currentFileName'));
   };
 
   return <div id='newpartslist'>
@@ -83,7 +80,7 @@ function FileNameGenerator(){
         <label>Module Serial# <input value={moduleSerialNumber} type='text' onChange={handleModuleSerialNumberChange} /></label>
         <button onClick={createPartsList}>Create parts list</button>
       </div>
-    :<div><button>Open Existing File</button><button onClick={savePartsList}>Save This File</button><br></br><PartsTable/></div>} 
+    :<div><button>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><br></br><PartsTable/></div>} 
     </div>
 }
 export default FileNameGenerator;

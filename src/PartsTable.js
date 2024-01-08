@@ -1,12 +1,10 @@
 import { useEffect } from "react";
-import { formData, loadFormData, loadPartsDatabase } from "./formData";
+import { formData, loadPartsDatabase } from "./formData";
 import { partsDataBase } from "./formData";
 import { fillFieldsWithData } from "./formData";
 import { isPartsAndQuantityFull } from "./formData";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setLocalPartsDatabase } from "./myReducers";
-import myDataStore from "./myDataStore";
 
 
 function PartsTable(){

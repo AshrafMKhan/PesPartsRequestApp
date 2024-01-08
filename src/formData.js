@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { setFormData } from "./myReducers";
 import myDataStore from "./myDataStore";
+
 export let formData = {
 	listOfRows: [0],
 };
@@ -18,7 +19,7 @@ export const loadPartsDatabase = () => {	//load the parts database into the loca
 		console.log('loaded database: ' + Object.keys(partsDataBase))
 	});
 };
-
+/*
 export const loadListOfCommonParts = (fileName) => {	//load data from a json object in a file and load into the local object
 	fetch('./common_parts/' + fileName).then(data => data.json()).then(data => {
 		formData = data;
@@ -29,10 +30,10 @@ export const loadListOfCommonParts = (fileName) => {	//load data from a json obj
 		//dispatch(setFormData(formData));
 		//localStorage.setItem('formData', JSON.stringify(data));
 	});
-	
-	
+
 	
 }
+*/
 export const fillFieldsWithData = () => {	//take data from the data object and put into corresponding fields on initial form load only
 	if(formData['listOfRows'].length === 1)formData = JSON.parse(localStorage.getItem('formData'));
 	formData.listOfRows.forEach(row => {
@@ -62,6 +63,7 @@ export const loadFormData = () => {	//load data from the existing fields into th
 		formData[row]['rmrk'] = document.querySelector('#rmrk'+row).value;
 		
 	});
+	formData['listOfRows'] = localStorage.getItem('tableRows').split(',');
 	return rows;
 };
 
@@ -77,6 +79,8 @@ export const isPartsAndQuantityFull = () => {
 }
 
 export const savePartsList = (fileName) => {
+	localStorage.setItem('formData', JSON.stringify(formData));
+	//localStorage.setItem('tableRows', formData['listOfRows']);
 	const serializedBody = JSON.stringify(formData);
 	const fetchOptions = { 
 	method: 'POST',
