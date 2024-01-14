@@ -1,5 +1,5 @@
 import { formData } from "./formData";
-import { useTable } from 'react-table';
+import { useTable, useSortBy } from 'react-table';
 import React from "react";
 import './FileDrawer.css';
 
@@ -20,58 +20,53 @@ for(let file in listOfFilesNames){
 	obj['Module Serial#'] = listOfCols[3];
 	listOfFilesNamesConvertedForHook.push(obj);
 }
-	console.log('listing listOfFilesNamesConvertedForHook')
 	listOfFilesNamesConvertedForHook.forEach(obj => {
-		console.log(obj['System Type']);
-		console.log(obj['Module Type']);
-		console.log(obj['System Serial#']);
-		console.log(obj['Module Serial#']);
-		
 	});
-console.log('listOfFilesNamesConvertedForHook: ' + listOfFilesNamesConvertedForHook[0]['System Type']);
+
 const data = React.useMemo(() =>	{
-	return listOfFilesNamesConvertedForHook}
-// [
-// {
-// name: 'Kim Parrish',
-// address: '4420 Valley Street, Garnerville, NY 10923',
-// date: '07/11/2020',
-// order: '87349585892118',
-// },
-// {
-// name: 'Michele Castillo',
-// address: '637 Kyle Street, Fullerton, NE 68638',
-// date: '07/11/2020',
-// order: '58418278790810',
-// },
-// {
-// name: 'Eric Ferris',
-// address: '906 Hart Country Lane, Toccoa, GA 30577',
-// date: '07/10/2020',
-// order: '81534454080477',
-// },
-// {
-// name: 'Gloria Noble',
-// address: '2403 Edgewood Avenue, Fresno, CA 93721',
-// date: '07/09/2020',
-// order: '20452221703743',
-// },
-// {
-// name: 'Darren Daniels',
-// address: '882 Hide A Way Road, Anaktuvuk Pass, AK 99721',
-// date: '07/07/2020',
-// order: '22906126785176',
-// },
-// {
-// name: 'Ted McDonald',
-// address: '796 Bryan Avenue, Minneapolis, MN 55406',
-// date: '07/07/2020',
-// order: '87574505851064',
-// },
-// ],
-
+	return listOfFilesNamesConvertedForHook},[]);
+/*
+return [
+{
+name: 'Kim Parrish',
+address: '4420 Valley Street, Garnerville, NY 10923',
+date: '07/11/2020',
+order: '87349585892118',
+},
+{
+name: 'Michele Castillo',
+address: '637 Kyle Street, Fullerton, NE 68638',
+date: '07/11/2020',
+order: '58418278790810',
+},
+{
+name: 'Eric Ferris',
+address: '906 Hart Country Lane, Toccoa, GA 30577',
+date: '07/10/2020',
+order: '81534454080477',
+},
+{
+name: 'Gloria Noble',
+address: '2403 Edgewood Avenue, Fresno, CA 93721',
+date: '07/09/2020',
+order: '20452221703743',
+},
+{
+name: 'Darren Daniels',
+address: '882 Hide A Way Road, Anaktuvuk Pass, AK 99721',
+date: '07/07/2020',
+order: '22906126785176',
+},
+{
+name: 'Ted McDonald',
+address: '796 Bryan Avenue, Minneapolis, MN 55406',
+date: '07/07/2020',
+order: '87574505851064',
+},
+]},
+[]
 )
-
+*/
 const columns = React.useMemo(
  () => [
  {
@@ -80,10 +75,12 @@ const columns = React.useMemo(
  {
  Header: 'System Type',
  accessor: 'System Type',
+ sortType: 'basic',
  },
  {
  Header: 'Module Type',
  accessor: 'Module Type',
+ sortType: 'basic',
  },
  ],
  },
@@ -93,23 +90,80 @@ const columns = React.useMemo(
  {
  Header: 'System Serial#',
  accessor: 'System Serial#',
+ sortType: 'basic',
  },
  {
  Header: 'Module Serial#',
  accessor: 'Module Serial#',
+ sortType: 'basic',
  },
  ],
  },
  ],
  []
 )
+
+/*
+const columns = React.useMemo(
+	() => [
+	{
+	Header: 'User Info',
+	columns: [
+	{
+	Header: 'Name',
+	accessor: 'name',
+	sortType: 'basic',
+	},
+	{
+	Header: 'Address',
+	accessor: 'address',
+	sortType: 'basic',
+	},
+	],
+	},
+	{
+	Header: 'Order Info',
+	columns: [
+	{
+	Header: 'Date',
+	accessor: 'date',
+	sortType: 'basic',
+	},
+	{
+	Header: 'Order #',
+	accessor: 'order',
+	sortType: 'basic',
+	},
+	],
+	},
+	],
+	[]
+ )
+ */
+/*
 const {
  getTableProps,
  getTableBodyProps,
  headerGroups,
  rows,
  prepareRow,
-} = useTable({ columns, data })
+} = useTable({ columns, data }, useSortBy)
+*/
+
+const {
+	getTableBodyProps,
+	getTableProps,
+	headerGroups,
+	rows,
+	getRowProps,
+	prepareRow,
+ } = useTable(
+	{
+		columns,
+		data,
+	},
+	useSortBy,
+ )
 
 //--------------------------------------------------------------------------------
 
@@ -146,17 +200,37 @@ const {
 	return (
 		<div>
 			<table {...getTableProps()}>
-				<thead >
+				{/* <thead >
 					{headerGroups.map(headerGroup => (
 						<tr {...headerGroup.getHeaderGroupProps()}>
 							{headerGroup.headers.map(column => (
-						<th {...column.getHeaderProps()}>{column.render('Header')}</th>
+						<th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render('Header')}
+							<span>
+								{column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+									</span>
+						
+						
+						</th>
 					))}
 					</tr>
 					))}
-				</thead>
+				</thead> */}
+				<thead>
+						{headerGroups.map(headerGroup => (
+							<tr {...headerGroup.getHeaderGroupProps()}>
+								{headerGroup.headers.map(column => (
+									<th {...column.getHeaderProps(column.getSortByToggleProps())}>
+										{column.render('Header')}
+										<span>
+											{column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+										</span>
+									</th>
+								))}
+							</tr>
+						))}
+						</thead>
 				<tbody {...getTableBodyProps()}>
-					{rows.map(row => { console.log('row: ' + JSON.stringify(row))
+					{rows.map(row => { 
 						prepareRow(row)
 						return (
 							<tr onClick={ e => {handlClick(row)}} {...row.getRowProps()}>
