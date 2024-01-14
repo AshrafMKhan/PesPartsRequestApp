@@ -6,10 +6,8 @@ import { isPartsAndQuantityFull } from "./formData";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-
 function PartsTable(){
 	//const dispatch = useDispatch();
-
 	const [list, setList] = useState([0]);		//used for forcing rerendering
 	if(partsDataBase === undefined){
 		loadPartsDatabase();		//reload the parts lookup database if it's not loaded in memory
@@ -43,6 +41,7 @@ function PartsTable(){
 	
 	return (
 		<div>
+			
 			<table>
       	<thead>
 					<tr>

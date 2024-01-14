@@ -13,7 +13,7 @@ function FileNameGenerator(){
     event.preventDefault();
     setSystemType(event.target.value);
   };
-  const [moduleType, setModuleType] = useState('Input_Hopper');
+  const [moduleType, setModuleType] = useState('InputHopper');
   const handleModuleChange = (event) => {
     event.preventDefault();
     setModuleType(event.target.value);
@@ -103,7 +103,7 @@ function FileNameGenerator(){
         </label>
         <label>Module Type: 
           <select value={moduleType} onChange={handleModuleChange}>
-            <option value="Input_Hopper">Input Hopper</option>
+            <option value="InputHopper">Input Hopper</option>
             <option value="MagStripe">Mag Stripe</option>
             <option value="Cleaning">Cleaning Module</option>
           </select>
