@@ -1,6 +1,8 @@
 import { formData } from "./formData";
 import { useTable } from 'react-table';
 import React from "react";
+import './FileDrawer.css';
+
 
 function SavedFile(){
 
@@ -144,7 +146,7 @@ const {
 	return (
 		<div>
 			<table {...getTableProps()}>
-				<thead>
+				<thead >
 					{headerGroups.map(headerGroup => (
 						<tr {...headerGroup.getHeaderGroupProps()}>
 							{headerGroup.headers.map(column => (
