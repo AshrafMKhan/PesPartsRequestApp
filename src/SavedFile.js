@@ -1,5 +1,5 @@
 import { formData } from "./formData";
-import { useTable, useSortBy } from 'react-table';
+import { useTable, useSortBy, useFilters } from 'react-table';
 import React from "react";
 import './FileDrawer.css';
 
@@ -9,6 +9,12 @@ function SavedFile(){
 	//-------------------------------------------------------------------------------
 //trying useTable
 //create a list of objects for the file names
+const defaultColumn = React.useMemo(
+	() => ({
+		Filter: TextFilter,
+	}),
+	[]
+ )
 const listOfFilesNames = localStorage.getItem('retrievedFiles').split(',');
 const listOfFilesNamesConvertedForHook = [];
 for(let file in listOfFilesNames){
@@ -161,10 +167,26 @@ const {
 	{
 		columns,
 		data,
+		defaultColumn,
 	},
-	useSortBy,
+	useFilters,useSortBy,
  )
 
+ function TextFilter({
+	column: { filterValue, preFilteredRows, setFilter },
+ }) {
+	const count = preFilteredRows.length
+ 
+	return (
+		<input
+			value={filterValue || ''}
+			onChange={e => {
+				setFilter(e.target.value || undefined)
+			}}
+			placeholder={`Search ${count} records...`}
+		/>
+	)
+ }
 //--------------------------------------------------------------------------------
 
 	const handlClick = file => {
@@ -224,6 +246,7 @@ const {
 										<span>
 											{column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
 										</span>
+										<div>{column.canFilter ? column.render('Filter') : null}</div>
 									</th>
 								))}
 							</tr>
