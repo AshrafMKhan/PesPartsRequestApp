@@ -16,12 +16,16 @@ export const appState = {
 export const loadPartsDatabase = () => {	//load the parts database into the local environment if it's not loaded
 	fetch('./parts_database.json').then(data => data.json()).then(data => {
 		partsDataBase = data;
-		console.log('loaded database: ' + Object.keys(partsDataBase))
 	});
 };
 
 export const fillFieldsWithData = () => {	//take data from the data object and put into corresponding fields on initial form load only
-	if(formData['listOfRows'].length === 1)formData = JSON.parse(localStorage.getItem('formData'));
+	if(formData['listOfRows'].length === 1){
+		formData = JSON.parse(localStorage.getItem('formData'));
+		console.log('reloaded formData in ram from local storage');
+	}
+
+	console.log('formData from ram: ' + JSON.stringify(formData));
 	formData.listOfRows.forEach(row => {
 		if(formData[row] !== undefined){
 			document.querySelector('#quan'+row).value = formData[row]['quan']
@@ -38,7 +42,6 @@ export const fillFieldsWithData = () => {	//take data from the data object and p
 export const loadFormData = () => {	//load data from the existing fields into the data object for saving purposes
 	const rows = localStorage.getItem('tableRows').split(',');
 	rows.forEach(row => {
-	//formData.listOfRows.forEach(row => {
 		if(formData[row] === undefined)formData[row] = {};
 		formData[row]['quan'] = document.querySelector('#quan'+row).value;
 		formData[row]['part'] = document.querySelector('#part'+row).value;
@@ -56,7 +59,6 @@ export const loadFormData = () => {	//load data from the existing fields into th
 export const isPartsAndQuantityFull = () => {
 	const rows = loadFormData();
 
-	console.log('running ispartsAndQuantityFull');
 	for(let row in rows){
 		if(formData[row]['quan'] === '')return false;
 		if(formData[row]['part'] === '')return false;
@@ -66,7 +68,6 @@ export const isPartsAndQuantityFull = () => {
 
 export const savePartsList = (fileName) => {
 	localStorage.setItem('formData', JSON.stringify(formData));
-	//localStorage.setItem('tableRows', formData['listOfRows']);
 	const serializedBody = JSON.stringify(formData);
 	const fetchOptions = { 
 	method: 'POST',

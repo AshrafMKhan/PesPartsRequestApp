@@ -45,15 +45,42 @@
     "rmrk": "test5"
   },
   "5": {
-    "quan": "",
-    "part": "",
-    "desc": "",
+    "quan": "6",
+    "part": "666",
+    "desc": "part number 666",
     "lctn": "f",
     "cost": "6.00",
     "prce": "7.00",
     "rmrk": "test6"
   },
   "6": {
+    "quan": "641",
+    "part": "642",
+    "desc": "part not found",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "7": {
+    "quan": "645",
+    "part": "645",
+    "desc": "part not found",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "8": {
+    "quan": "641",
+    "part": "641",
+    "desc": "File 641 642",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "9": {
     "quan": "",
     "part": "",
     "desc": "",
@@ -69,7 +96,10 @@
     "3",
     "4",
     "5",
-    "6"
+    "6",
+    "7",
+    "8",
+    "9"
   ],
   "parts_database_loaded": true
 }

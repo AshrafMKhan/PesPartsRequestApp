@@ -54,13 +54,22 @@
     "rmrk": "test6"
   },
   "6": {
+    "quan": "709",
+    "part": "710",
+    "desc": "File 709 710",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "7": {
     "quan": "",
     "part": "",
     "desc": "",
     "lctn": "",
     "cost": "",
     "prce": "",
-    "rmrk": "aaa"
+    "rmrk": ""
   },
   "listOfRows": [
     "0",
@@ -69,7 +78,8 @@
     "3",
     "4",
     "5",
-    "6"
+    "6",
+    "7"
   ],
   "parts_database_loaded": true
 }

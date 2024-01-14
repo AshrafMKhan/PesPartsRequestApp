@@ -54,15 +54,33 @@
     "rmrk": "test6"
   },
   "6": {
-    "quan": "7",
-    "part": "777",
-    "desc": "part number 777",
+    "quan": "804",
+    "part": "805",
+    "desc": "part not found",
     "lctn": "",
     "cost": "",
     "prce": "",
     "rmrk": ""
   },
   "7": {
+    "quan": "645",
+    "part": "645",
+    "desc": "part not found",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "8": {
+    "quan": "804",
+    "part": "805",
+    "desc": "File 804 805",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "9": {
     "quan": "",
     "part": "",
     "desc": "",
@@ -79,7 +97,9 @@
     "4",
     "5",
     "6",
-    "7"
+    "7",
+    "8",
+    "9"
   ],
   "parts_database_loaded": true
 }

@@ -3,6 +3,8 @@ import { loadFormData, savePartsList } from './formData';
 import PartsTable from './PartsTable';
 import myDataStore from './myDataStore';
 import { formData } from './formData';
+import SavedFile from './SavedFile'
+
 function FileNameGenerator(){
   
   const [list, setList] = useState([0]);
@@ -44,10 +46,14 @@ function FileNameGenerator(){
       };
       const fileName = systemType + '_' + moduleType + '_' + systemSerialNumber + '_' + moduleSerialNumber;
       localStorage.setItem('currentFileName', fileName);
+      localStorage.setItem('router', 'loadTable')
       fetch('/savePartsList?fileName=' + fileName, fetchOptions).then(response => {
         if(response['ok'] === false)alert('Could not save the file. An error occured')
-        if(list.length === 1)setList([]);
-        else setList([0]);
+
+        //if(list.length === 1)setList([]);
+        //else setList([0]);
+        window.location.reload(false);  //refresh page
+
       }).catch(e => {console.log('an error occured while trying to write the file.')});
     });
   
@@ -60,17 +66,33 @@ function FileNameGenerator(){
 
   const handleMakeNewFile = (e) => {
     localStorage.setItem('currentFileName', '');
-    // for(let key in formData){
-    //   if(key !== 'listOfRows')delete(key);
-    // }
     formData['listOfRows'] = [0];
-    if(list.length === 1)setList([]);
-    else setList([0]);
+    localStorage.setItem('router', 'newFileName');
+    localStorage.setItem('currentFileName','');
+
+    //if(list.length === 1)setList([]);
+    //else setList([0]);
+    window.location.reload(false);  //refresh page
   }
+
+  const handleOpenFile = (e) => {
+    localStorage.setItem('router', 'openFile')
+    fetch('/getListOfPartsLists')
+      .then((res) => res.json())
+      .then((data) => {
+        localStorage.setItem('retrievedFiles', data['ListOfPartsLists']);
+        data['ListOfPartsLists'].forEach(file => console.log(file));
+        //if(list.length === 1)setList([]);
+        //else setList([0]);
+        window.location.reload(false);  //refresh the page
+    }).catch(error =>{
+      console.log('could not get a list of files.')
+    });
+  };
 
   return <div id='newpartslist'>
     Current Parts List: {localStorage.getItem('currentFileName')}
-    {!localStorage.getItem('currentFileName')?
+    {localStorage.getItem('router') === 'newFileName' || localStorage.getItem('router') === ''?
       <div>
         <label>System Type:
           <select value={systemType} onChange={handleSystemChange}>
@@ -90,7 +112,9 @@ function FileNameGenerator(){
         <label>Module Serial# <input value={moduleSerialNumber} type='text' onChange={handleModuleSerialNumberChange} /></label>
         <button onClick={createPartsList}>Create parts list</button>
       </div>
-    :<div><button onClick={handleMakeNewFile}>Make a new File</button><button>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><br></br><PartsTable/></div>} 
+    :<></>}
+    {localStorage.getItem('router') === 'loadTable'?<div><button onClick={handleMakeNewFile}>Make a new File</button><button onClick={handleOpenFile}>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><br></br><PartsTable/></div>:<></>}
+    {localStorage.getItem('router') === 'openFile'?<div><button onClick={handleMakeNewFile}>Make a new File</button><button onClick={handleOpenFile}>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><br></br><SavedFile/></div>:<></>}
     </div>
 }
 export default FileNameGenerator;
