@@ -1,3 +1,9 @@
 table, td, th {
     border: solid green 2px;
 }
+
+/* * {
+    border: solid blue 2px;
+    background-color: gray;
+    color: white
+} */

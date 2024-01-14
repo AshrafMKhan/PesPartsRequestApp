@@ -54,9 +54,9 @@
     "rmrk": "test6"
   },
   "6": {
-    "quan": "201",
-    "part": "201",
-    "desc": "File 201 201",
+    "quan": "7",
+    "part": "777",
+    "desc": "part number 777",
     "lctn": "",
     "cost": "",
     "prce": "",
@@ -65,7 +65,7 @@
   "7": {
     "quan": "",
     "part": "",
-    "desc": "",
+    "desc": "no part",
     "lctn": "",
     "cost": "",
     "prce": "",

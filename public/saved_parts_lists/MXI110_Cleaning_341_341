@@ -53,33 +53,14 @@
     "prce": "7.00",
     "rmrk": "test6"
   },
-  "6": {
-    "quan": "202",
-    "part": "202",
-    "desc": "File 202 202",
-    "lctn": "",
-    "cost": "",
-    "prce": "",
-    "rmrk": ""
-  },
-  "7": {
-    "quan": "",
-    "part": "",
-    "desc": "",
-    "lctn": "",
-    "cost": "",
-    "prce": "",
-    "rmrk": ""
-  },
   "listOfRows": [
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7"
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
   ],
   "parts_database_loaded": true
 }

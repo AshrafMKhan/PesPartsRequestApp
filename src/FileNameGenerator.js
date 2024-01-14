@@ -6,18 +6,36 @@ import { formData } from './formData';
 import SavedFile from './SavedFile'
 
 function FileNameGenerator(){
-  
+  const [other, setOther] = useState(false);
+  const [otherModule, setOtherModule] = useState(false);
   const [list, setList] = useState([0]);
   const [systemType, setSystemType] = useState('MX6100');
   const handleSystemChange = (event) => {
     event.preventDefault();
+    if(event.target.value === 'Other'){
+      setOther(true);
+    }
     setSystemType(event.target.value);
   };
+  const handleSystemNameInput = (event) => {
+    event.preventDefault();
+    setSystemType(event.target.value);
+  };
+
   const [moduleType, setModuleType] = useState('InputHopper');
   const handleModuleChange = (event) => {
     event.preventDefault();
+    if(event.target.value === 'Other'){
+      setOtherModule(true);
+    }
     setModuleType(event.target.value);
   };
+  const handleModuleNameInput = (event) => {
+    event.preventDefault();
+    
+    setModuleType(event.target.value);
+  };
+
   const [systemSerialNumber, setSystemSerialNumber] = useState('');
   const handleSystemSerialNumberChange = (event) => {
     event.preventDefault();
@@ -44,7 +62,8 @@ function FileNameGenerator(){
       },
       body: serializedBody // (5)
       };
-      const fileName = systemType + '_' + moduleType + '_' + systemSerialNumber + '_' + moduleSerialNumber;
+      const fileName = (systemType + '_' + moduleType + '_' + systemSerialNumber + '_' + moduleSerialNumber).replace(/[ ]/g,'-');
+      
       localStorage.setItem('currentFileName', fileName);
       localStorage.setItem('router', 'loadTable')
       fetch('/savePartsList?fileName=' + fileName, fetchOptions).then(response => {
@@ -91,22 +110,51 @@ function FileNameGenerator(){
   };
 
   return <div id='newpartslist'>
-    Current Parts List: {localStorage.getItem('currentFileName')}
+    <h3 style={{textAlign: 'center'}}>{localStorage.getItem('currentFileName')}</h3>
     {localStorage.getItem('router') === 'newFileName' || localStorage.getItem('router') === ''?
-      <div>
+      <div><div style={{textAlign:'center'}}><button onClick={handleOpenFile}>Open Existing File</button></div><br></br>
         <label>System Type:
-          <select value={systemType} onChange={handleSystemChange}>
+          {other? <input onChange={handleSystemNameInput}/> :<select value={systemType} onChange={handleSystemChange}>
             <option value="MX6100">MX6100</option>
             <option value="MX6000">MX6000</option>
             <option value="MX2100">MX2100</option>
-          </select>
+            <option value="MX2000">MX2000</option>
+            <option value="MX1100">MX1100</option>
+            <option value="MX1000">MX1000</option>
+            <option value="MXDClassic">MXDClassic</option>
+            <option value="MXD610">MXD610</option>
+            <option value="MXDLite110">MXDLite110</option>
+            <option value="MXDLite210">MXDLite210</option>
+            <option value="MXI210">MXI210</option>
+            <option value="MXI110">MXI110</option>
+            <option value="DC9000">DC900000</option>
+            <option value="DC7000">DC700000</option>
+            <option value="DC500">DC500</option>
+            <option value="UltraForm">UltraForm</option>
+            <option value="UltraPac">UltraPac</option>
+            <option value="DC150I">DC150I</option>
+            <option value="DC4x0">DC4x0</option>
+            <option value="DC2x0">DC2x0</option>
+            <option value="Matica">Matica</option>
+            <option value="Other">Other</option>
+          </select>}
         </label>
         <label>Module Type: 
-          <select value={moduleType} onChange={handleModuleChange}>
+          {otherModule? <input onChange={handleModuleNameInput}/> : <select value={moduleType} onChange={handleModuleChange}>
             <option value="InputHopper">Input Hopper</option>
             <option value="MagStripe">Mag Stripe</option>
             <option value="Cleaning">Cleaning Module</option>
-          </select>
+            <option value="FrontGfx">Front Gfx</option>
+            <option value="RearGfx">Rear Gfx</option>
+            <option value="ColorGfx">Color Gfx</option>
+            <option value="SmartCardBarrel">SmartCard Barrel</option>
+            <option value="SmartCardRack">SmartCard Rack</option>
+            <option value="Emboss">Emboss</option>
+            <option value="Topper">Topper</option>
+            <option value="Topcoat">Topcoat</option>
+            <option value="CardGuard">Card Guard</option>
+            <option value="Other">Other</option>
+          </select>}
         </label>
         <label>System Serial# <input value={systemSerialNumber} type='text' onChange={handleSystemSerialNumberChange} /></label>
         <label>Module Serial# <input value={moduleSerialNumber} type='text' onChange={handleModuleSerialNumberChange} /></label>
@@ -114,7 +162,7 @@ function FileNameGenerator(){
       </div>
     :<></>}
     {localStorage.getItem('router') === 'loadTable'?<div><button onClick={handleMakeNewFile}>Make a new File</button><button onClick={handleOpenFile}>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><br></br><PartsTable/></div>:<></>}
-    {localStorage.getItem('router') === 'openFile'?<div><button onClick={handleMakeNewFile}>Make a new File</button><button onClick={handleOpenFile}>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><br></br><SavedFile/></div>:<></>}
+    {localStorage.getItem('router') === 'openFile'?<div><button onClick={handleMakeNewFile}>Make a new File</button><br></br><SavedFile/></div>:<></>}
     </div>
 }
 export default FileNameGenerator;

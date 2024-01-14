@@ -54,36 +54,9 @@
     "rmrk": "test6"
   },
   "6": {
-    "quan": "1",
-    "part": "232",
-    "desc": "part not found",
-    "lctn": "",
-    "cost": "",
-    "prce": "",
-    "rmrk": "asa"
-  },
-  "7": {
-    "quan": "2",
-    "part": "321",
-    "desc": "part not found",
-    "lctn": "",
-    "cost": "",
-    "prce": "",
-    "rmrk": ""
-  },
-  "8": {
-    "quan": "123",
-    "part": "abc",
-    "desc": "File 123 abc",
-    "lctn": "",
-    "cost": "",
-    "prce": "",
-    "rmrk": ""
-  },
-  "9": {
     "quan": "",
     "part": "",
-    "desc": "",
+    "desc": "OtherModule 335 335",
     "lctn": "",
     "cost": "",
     "prce": "",
@@ -96,10 +69,7 @@
     "3",
     "4",
     "5",
-    "6",
-    "7",
-    "8",
-    "9"
+    "6"
   ],
   "parts_database_loaded": true
 }
