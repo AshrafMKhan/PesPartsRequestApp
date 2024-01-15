@@ -1,7 +1,3 @@
-import { useDispatch } from "react-redux";
-import { setFormData } from "./myReducers";
-import myDataStore from "./myDataStore";
-
 export let formData = {
 	listOfRows: [0],
 };
@@ -22,10 +18,10 @@ export const loadPartsDatabase = () => {	//load the parts database into the loca
 export const fillFieldsWithData = () => {	//take data from the data object and put into corresponding fields on initial form load only
 	if(formData['listOfRows'].length === 1){
 		formData = JSON.parse(localStorage.getItem('formData'));
-		console.log('reloaded formData in ram from local storage');
+		//console.log('reloaded formData in ram from local storage');
 	}
 
-	console.log('formData from ram: ' + JSON.stringify(formData));
+	//console.log('formData from ram: ' + JSON.stringify(formData));
 	formData.listOfRows.forEach(row => {
 		if(formData[row] !== undefined){
 			document.querySelector('#quan'+row).value = formData[row]['quan']

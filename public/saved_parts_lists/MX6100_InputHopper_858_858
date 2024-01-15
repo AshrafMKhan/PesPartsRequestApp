@@ -54,18 +54,9 @@
     "rmrk": "test6"
   },
   "6": {
-    "quan": "7",
-    "part": "777",
-    "desc": "part number 777",
-    "lctn": "",
-    "cost": "",
-    "prce": "",
-    "rmrk": ""
-  },
-  "7": {
     "quan": "",
     "part": "",
-    "desc": "no part",
+    "desc": "renamed to 858",
     "lctn": "",
     "cost": "",
     "prce": "",
@@ -78,8 +69,7 @@
     "3",
     "4",
     "5",
-    "6",
-    "7"
+    "6"
   ],
   "parts_database_loaded": true
 }

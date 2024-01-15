@@ -1,14 +1,14 @@
 import {useState} from 'react'
 import { loadFormData, savePartsList } from './formData';
 import PartsTable from './PartsTable';
-import myDataStore from './myDataStore';
 import { formData } from './formData';
 import SavedFile from './SavedFile'
 
 function FileNameGenerator(){
+  if(localStorage.getItem('router') === null)localStorage.setItem('router', '');
   const [other, setOther] = useState(false);
   const [otherModule, setOtherModule] = useState(false);
-  const [list, setList] = useState([0]);
+  //const [list, setList] = useState([0]);
   const [systemType, setSystemType] = useState('MX6100');
   const handleSystemChange = (event) => {
     event.preventDefault();
@@ -52,7 +52,6 @@ function FileNameGenerator(){
       localStorage.setItem('formData', JSON.stringify(data));
       localStorage.setItem('tableRows', data['listOfRows']);
 
-      console.log('form data from local storage: ' + JSON.parse(localStorage.getItem('formData')));
       const serializedBody = JSON.stringify(data);  //myDataStore.getState().formData);
       const fetchOptions = {
       method: 'POST',
@@ -109,10 +108,27 @@ function FileNameGenerator(){
     });
   };
 
+  const handleRenameFile = (e) => {
+    localStorage.setItem('router','renameFile');
+    window.location.reload(false);
+  };
+
+  const handleSaveFileName = (e) => {
+    console.log('renameing file')
+    const fileName = (systemType + '_' + moduleType + '_' + systemSerialNumber + '_' + moduleSerialNumber).replace(/[ ]/g,'-');
+    fetch('/renameFile?currentFileName='+localStorage.getItem('currentFileName')+'&newFileName='+fileName).then(data => data.text()).then(data => {
+      console.log('file rename response: ' + data);
+      localStorage.setItem('currentFileName', fileName);
+      localStorage.setItem('router', 'loadTable')
+      window.location.reload(false);
+    });
+  };
+
+
   return <div id='newpartslist'>
     <h3 style={{textAlign: 'center'}}>{localStorage.getItem('currentFileName')}</h3>
-    {localStorage.getItem('router') === 'newFileName' || localStorage.getItem('router') === ''?
-      <div><div style={{textAlign:'center'}}><button onClick={handleOpenFile}>Open Existing File</button></div><br></br>
+    {localStorage.getItem('router') === 'newFileName' || localStorage.getItem('router') === '' || localStorage.getItem('router') === 'renameFile'?
+      <div>{localStorage.getItem('router') === 'newFileName'?<div style={{textAlign:'center'}}><button onClick={handleOpenFile}>Open Existing File</button></div>:<></>}<br></br>
         <label>System Type:
           {other? <input onChange={handleSystemNameInput}/> :<select value={systemType} onChange={handleSystemChange}>
             <option value="MX6100">MX6100</option>
@@ -158,10 +174,10 @@ function FileNameGenerator(){
         </label>
         <label>System Serial# <input value={systemSerialNumber} type='text' onChange={handleSystemSerialNumberChange} /></label>
         <label>Module Serial# <input value={moduleSerialNumber} type='text' onChange={handleModuleSerialNumberChange} /></label>
-        <button onClick={createPartsList}>Create parts list</button>
+        {localStorage.getItem('router') === 'renameFile'?<button onClick={handleSaveFileName}>Save File Name</button> :<button onClick={createPartsList}>Create parts list</button>}
       </div>
     :<></>}
-    {localStorage.getItem('router') === 'loadTable'?<div><button onClick={handleMakeNewFile}>Make a new File</button><button onClick={handleOpenFile}>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><br></br><PartsTable/></div>:<></>}
+    {localStorage.getItem('router') === 'loadTable' || localStorage.getItem('router') === 'renameFile'?<div><button onClick={handleMakeNewFile}>Make a new File</button><button onClick={handleOpenFile}>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><button onClick={handleRenameFile}>Rename File</button><br></br><PartsTable/></div>:<></>}
     {localStorage.getItem('router') === 'openFile'?<div><button onClick={handleMakeNewFile}>Make a new File</button><br></br><SavedFile/></div>:<></>}
     </div>
 }

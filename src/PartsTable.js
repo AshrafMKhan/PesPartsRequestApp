@@ -4,14 +4,13 @@ import { partsDataBase } from "./formData";
 import { fillFieldsWithData } from "./formData";
 import { isPartsAndQuantityFull } from "./formData";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 
 function PartsTable(){
 	//const dispatch = useDispatch();
 	const [list, setList] = useState([0]);		//used for forcing rerendering
 	if(partsDataBase === undefined){
 		loadPartsDatabase();		//reload the parts lookup database if it's not loaded in memory
-		console.log('Reloading parts database into ram')
+		//console.log('Reloading parts database into ram')
 	}
 	const handleInputChange = (e) => {
 		const id = e.target.id;
