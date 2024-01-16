@@ -177,7 +177,7 @@ function FileNameGenerator(){
         {localStorage.getItem('router') === 'renameFile'?<button onClick={handleSaveFileName}>Save File Name</button> :<button onClick={createPartsList}>Create parts list</button>}
       </div>
     :<></>}
-    {localStorage.getItem('router') === 'loadTable' || localStorage.getItem('router') === 'renameFile'?<div style={{width: '1265px', textAlign:'right'}}><button onClick={handleMakeNewFile}>Make a new File</button><button onClick={handleOpenFile}>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><button onClick={handleRenameFile}>Rename File</button><br></br><PartsTable/></div>:<></>}
+    {localStorage.getItem('router') === 'loadTable' || localStorage.getItem('router') === 'renameFile'?<div style={{width: '1265px', textAlign:'center'}}><button onClick={handleMakeNewFile}>Make a new File</button><button onClick={handleOpenFile}>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><button onClick={handleRenameFile}>Rename File</button><br></br><br></br><PartsTable/></div>:<></>}
     {localStorage.getItem('router') === 'openFile'?<div><button onClick={handleMakeNewFile}>Make a new File</button><br></br><SavedFile/></div>:<></>}
     </div>
 }

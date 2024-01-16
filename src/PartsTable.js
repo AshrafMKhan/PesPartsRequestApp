@@ -13,6 +13,7 @@ function PartsTable(){
 		//console.log('Reloading parts database into ram')
 	}
 	const handleInputChange = (e) => {
+		
 		const id = e.target.id;
 		const row = Number(id.slice(4));
 		const typeOfInput = id.slice(0,4);
@@ -26,9 +27,14 @@ function PartsTable(){
 		}
 		if(typeOfInput === 'part' && e.target.value.length === 10){
 			const enteredPartNumberDescription = partsDataBase[e.target.value];
-			if(enteredPartNumberDescription !== undefined)
+			if(enteredPartNumberDescription !== undefined){
 			document.querySelector('#desc'+row).value = partsDataBase[e.target.value]['description']; 
-			else document.querySelector('#desc'+row).value = 'part not found';
+			
+			document.querySelector('#lctn'+row).value = partsDataBase[e.target.value]['location']; 
+			document.querySelector('#cost'+row).value = partsDataBase[e.target.value]['cost']; 
+			document.querySelector('#prce'+row).value = partsDataBase[e.target.value]['price'];
+			}else document.querySelector('#desc'+row).value = 'part not found';
+			
 		}
 		if(formData[row] === undefined)formData[row] = {};
 		formData[row][typeOfInput] = e.target.value;
@@ -38,10 +44,23 @@ function PartsTable(){
 		const id = e.target.id;
 		const row = Number(id.slice(4));
 		const enteredPartNumberDescription = partsDataBase[e.target.value];
-		if(enteredPartNumberDescription !== undefined)
+		if(enteredPartNumberDescription !== undefined){
 			document.querySelector('#desc'+row).value = partsDataBase[e.target.value]['description']; 
-		else document.querySelector('#desc'+row).value = 'part not found';
+			
+			document.querySelector('#lctn'+row).value = partsDataBase[e.target.value]['location']; 
+			document.querySelector('#cost'+row).value = partsDataBase[e.target.value]['cost']; 
+			document.querySelector('#prce'+row).value = partsDataBase[e.target.value]['price'];
+			}else document.querySelector('#desc'+row).value = 'part not found';
+
 	};
+	const handleEnterPressed = e => {
+		
+		if(e.key === 'Enter'){
+			handleInputChangeBlur(e);
+		}
+
+	};
+
 
 	
 	useEffect(()=>{
@@ -64,7 +83,7 @@ function PartsTable(){
 					</tr>
         </thead>
         <tbody>
-					{localStorage.getItem('tableRows').split(',').map(row => <tr key={'k'+row}><td><input style={{width:'50px'}} id={'quan'+row} type='text' onChange={handleInputChange}/></td><td><input style={{width:'100px'}} id={'part'+row} type='text' onChange={handleInputChange} onBlur={handleInputChangeBlur}/></td><td><input style={{width:'600px'}} id={'desc'+row} type='text' onChange={handleInputChange}/></td><td><input style={{width:'75px'}} id={'lctn'+row} type='text' onChange={handleInputChange}/></td><td><input  style={{width:'75px'}} id={'cost'+row} type='text' onChange={handleInputChange}/></td><td><input style={{width:'75px'}} id={'prce'+row} type='text' onChange={handleInputChange}/></td><td><input id={'rmrk'+row} type='text' onChange={handleInputChange}/></td></tr> )}
+					{localStorage.getItem('tableRows').split(',').map(row => <tr key={'k'+row}><td><input style={{width:'50px'}} id={'quan'+row} type='text' onChange={handleInputChange}/></td><td><input style={{width:'100px'}} id={'part'+row} type='text' onKeyDown={handleEnterPressed} onChange={handleInputChange} onBlur={handleInputChangeBlur}/></td><td><input style={{width:'600px'}} id={'desc'+row} type='text' onChange={handleInputChange}/></td><td><input style={{width:'75px'}} id={'lctn'+row} type='text' onChange={handleInputChange}/></td><td><input  style={{width:'75px'}} id={'cost'+row} type='text' onChange={handleInputChange}/></td><td><input style={{width:'75px'}} id={'prce'+row} type='text' onChange={handleInputChange}/></td><td><input id={'rmrk'+row} type='text' onChange={handleInputChange}/></td></tr> )}
 				</tbody>
       </table>
 		</div>

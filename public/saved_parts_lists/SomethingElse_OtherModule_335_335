@@ -54,9 +54,54 @@
     "rmrk": "test6"
   },
   "6": {
+    "quan": "2",
+    "part": "568022-001",
+    "desc": "*** PART NUMBER SUPERSEDED BY: 568022-003 ***",
+    "lctn": "Stock",
+    "cost": "$851.24 ",
+    "prce": "$1,033.65 ",
+    "rmrk": ""
+  },
+  "7": {
+    "quan": "1",
+    "part": "9693",
+    "desc": "CABLE ASSY POWER",
+    "lctn": "Stock",
+    "cost": "$9.80 ",
+    "prce": "$15.00 ",
+    "rmrk": ""
+  },
+  "8": {
+    "quan": "1",
+    "part": "9726-02",
+    "desc": "\"SENSOR ASSY 14\"\" LG IM\"",
+    "lctn": "Stock",
+    "cost": "$28.72 ",
+    "prce": "$49.00 ",
+    "rmrk": ""
+  },
+  "9": {
+    "quan": "2",
+    "part": "9693",
+    "desc": "CABLE ASSY POWER",
+    "lctn": "Stock",
+    "cost": "$9.80 ",
+    "prce": "$15.00 ",
+    "rmrk": ""
+  },
+  "10": {
+    "quan": "2",
+    "part": "9726-02",
+    "desc": "\"SENSOR ASSY 14\"\" LG IM\"",
+    "lctn": "Stock",
+    "cost": "$28.72 ",
+    "prce": "$49.00 ",
+    "rmrk": ""
+  },
+  "11": {
     "quan": "",
-    "part": "",
-    "desc": "OtherModule 335 335",
+    "part": "12",
+    "desc": "new part",
     "lctn": "",
     "cost": "",
     "prce": "",
@@ -69,7 +114,12 @@
     "3",
     "4",
     "5",
-    "6"
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11"
   ],
   "parts_database_loaded": true
 }
