@@ -102,9 +102,9 @@ const {
 										 file['original']['Module Type'] + '_' +
 										 file['original']['System Serial#'] + '_' +
 										 file['original']['Module Serial#'];
-		console.log('fileName: ' + filename);
+		//console.log('fileName: ' + filename);
 		formData['listOfRows'] = [0];
-		console.log('filename: ' + filename);
+		//console.log('filename: ' + filename);
 		localStorage.setItem('router', 'loadTable'); 
 		localStorage.setItem('currentFileName',filename);
 		fetch('./saved_parts_lists/'+filename).then(data => data.json()).then(data => {
@@ -118,11 +118,11 @@ const {
 										 file['original']['Module Type'] + '_' +
 										 file['original']['System Serial#'] + '_' +
 										 file['original']['Module Serial#'];
-		console.log('fileName: ' + filename);
+		//console.log('fileName: ' + filename);
 		const deleteConfirmation = window.confirm("Are you sure your want to delete this file? \n Press OK to delete or cancel to not delete.")
 		if(deleteConfirmation){
 			fetch('/deleteFile?fileName='+filename).then(data => {
-				console.log('delete response: ' + data);
+				//console.log('delete response: ' + data);
 				
 					fetch('/getListOfPartsLists')
 					.then((res) => res.json())
@@ -133,28 +133,13 @@ const {
 						//else setList([0]);
 						window.location.reload(false);  //refresh the page
 				}).catch(error =>{
-					console.log('could not get a list of files.')
+					//console.log('could not get a list of files.')
 				});
 				
 			});
 		}
 
 	};
-	
-
-	/*
-	const handleDoubleClick = file => {
-		formData['listOfRows'] = [0];
-		console.log('filename: ' + file);
-		localStorage.setItem('router', 'loadTable'); 
-		localStorage.setItem('currentFileName',file);
-		fetch('./saved_parts_lists/'+file).then(data => data.json()).then(data => {
-      localStorage.setItem('formData', JSON.stringify(data));
-      localStorage.setItem('tableRows', data['listOfRows']);
-			window.location.reload(false);	//refresh page
-		});
-	};
-	*/
 	return (
 		<div>
 			<table {...getTableProps()}>

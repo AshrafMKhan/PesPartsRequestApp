@@ -99,12 +99,12 @@ function FileNameGenerator(){
       .then((res) => res.json())
       .then((data) => {
         localStorage.setItem('retrievedFiles', data['ListOfPartsLists']);
-        data['ListOfPartsLists'].forEach(file => console.log(file));
+        //data['ListOfPartsLists'].forEach(file => console.log(file));
         //if(list.length === 1)setList([]);
         //else setList([0]);
         window.location.reload(false);  //refresh the page
     }).catch(error =>{
-      console.log('could not get a list of files.')
+      //console.log('could not get a list of files.')
     });
   };
 
@@ -114,10 +114,10 @@ function FileNameGenerator(){
   };
 
   const handleSaveFileName = (e) => {
-    console.log('renameing file')
+    //console.log('renameing file')
     const fileName = (systemType + '_' + moduleType + '_' + systemSerialNumber + '_' + moduleSerialNumber).replace(/[ ]/g,'-');
     fetch('/renameFile?currentFileName='+localStorage.getItem('currentFileName')+'&newFileName='+fileName).then(data => data.text()).then(data => {
-      console.log('file rename response: ' + data);
+      //console.log('file rename response: ' + data);
       localStorage.setItem('currentFileName', fileName);
       localStorage.setItem('router', 'loadTable')
       window.location.reload(false);
@@ -126,9 +126,9 @@ function FileNameGenerator(){
 
 
   return <div id='newpartslist'>
-    <h3 style={{textAlign: 'center'}}>{localStorage.getItem('currentFileName')}</h3>
+    <h3 style={{textAlign: 'center', width:'1265px'}}>{localStorage.getItem('currentFileName')}</h3>
     {localStorage.getItem('router') === 'newFileName' || localStorage.getItem('router') === '' || localStorage.getItem('router') === 'renameFile'?
-      <div>{localStorage.getItem('router') === 'newFileName'?<div style={{textAlign:'center'}}><button onClick={handleOpenFile}>Open Existing File</button></div>:<></>}<br></br>
+      <div>{localStorage.getItem('router') === 'newFileName' || localStorage.getItem('router') === ''?<div style={{textAlign:'center'}}><button onClick={handleOpenFile}>Open Existing File</button></div>:<></>}<br></br>
         <label>System Type:
           {other? <input onChange={handleSystemNameInput}/> :<select value={systemType} onChange={handleSystemChange}>
             <option value="MX6100">MX6100</option>
@@ -177,7 +177,7 @@ function FileNameGenerator(){
         {localStorage.getItem('router') === 'renameFile'?<button onClick={handleSaveFileName}>Save File Name</button> :<button onClick={createPartsList}>Create parts list</button>}
       </div>
     :<></>}
-    {localStorage.getItem('router') === 'loadTable' || localStorage.getItem('router') === 'renameFile'?<div><button onClick={handleMakeNewFile}>Make a new File</button><button onClick={handleOpenFile}>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><button onClick={handleRenameFile}>Rename File</button><br></br><PartsTable/></div>:<></>}
+    {localStorage.getItem('router') === 'loadTable' || localStorage.getItem('router') === 'renameFile'?<div style={{width: '1265px', textAlign:'right'}}><button onClick={handleMakeNewFile}>Make a new File</button><button onClick={handleOpenFile}>Open Existing File</button><button onClick={handleSavePartsList}>Save This File</button><button onClick={handleRenameFile}>Rename File</button><br></br><PartsTable/></div>:<></>}
     {localStorage.getItem('router') === 'openFile'?<div><button onClick={handleMakeNewFile}>Make a new File</button><br></br><SavedFile/></div>:<></>}
     </div>
 }

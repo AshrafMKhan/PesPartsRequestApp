@@ -24,7 +24,7 @@ function PartsTable(){
       else setList([0]);
 			//window.location.reload(false);	//refresh page
 		}
-		if(typeOfInput === 'part' && e.target.value.length === 3){
+		if(typeOfInput === 'part' && e.target.value.length === 10){
 			const enteredPartNumberDescription = partsDataBase[e.target.value];
 			if(enteredPartNumberDescription !== undefined)
 			document.querySelector('#desc'+row).value = partsDataBase[e.target.value]['description']; 
@@ -33,6 +33,16 @@ function PartsTable(){
 		if(formData[row] === undefined)formData[row] = {};
 		formData[row][typeOfInput] = e.target.value;
 	};
+
+	const handleInputChangeBlur = e => {
+		const id = e.target.id;
+		const row = Number(id.slice(4));
+		const enteredPartNumberDescription = partsDataBase[e.target.value];
+		if(enteredPartNumberDescription !== undefined)
+			document.querySelector('#desc'+row).value = partsDataBase[e.target.value]['description']; 
+		else document.querySelector('#desc'+row).value = 'part not found';
+	};
+
 	
 	useEffect(()=>{
 		fillFieldsWithData();	
@@ -54,7 +64,7 @@ function PartsTable(){
 					</tr>
         </thead>
         <tbody>
-					{localStorage.getItem('tableRows').split(',').map(row => <tr key={'k'+row}><td><input id={'quan'+row} type='text' onChange={handleInputChange}/></td><td><input id={'part'+row} type='text' onChange={handleInputChange}/></td><td><input id={'desc'+row} type='text' onChange={handleInputChange}/></td><td><input id={'lctn'+row} type='text' onChange={handleInputChange}/></td><td><input id={'cost'+row} type='text' onChange={handleInputChange}/></td><td><input id={'prce'+row} type='text' onChange={handleInputChange}/></td><td><input id={'rmrk'+row} type='text' onChange={handleInputChange}/></td></tr> )}
+					{localStorage.getItem('tableRows').split(',').map(row => <tr key={'k'+row}><td><input style={{width:'50px'}} id={'quan'+row} type='text' onChange={handleInputChange}/></td><td><input style={{width:'100px'}} id={'part'+row} type='text' onChange={handleInputChange} onBlur={handleInputChangeBlur}/></td><td><input style={{width:'600px'}} id={'desc'+row} type='text' onChange={handleInputChange}/></td><td><input style={{width:'75px'}} id={'lctn'+row} type='text' onChange={handleInputChange}/></td><td><input  style={{width:'75px'}} id={'cost'+row} type='text' onChange={handleInputChange}/></td><td><input style={{width:'75px'}} id={'prce'+row} type='text' onChange={handleInputChange}/></td><td><input id={'rmrk'+row} type='text' onChange={handleInputChange}/></td></tr> )}
 				</tbody>
       </table>
 		</div>

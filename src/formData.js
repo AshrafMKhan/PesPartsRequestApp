@@ -10,7 +10,7 @@ export const appState = {
 };
 
 export const loadPartsDatabase = () => {	//load the parts database into the local environment if it's not loaded
-	fetch('./parts_database.json').then(data => data.json()).then(data => {
+	fetch('./Parts.json').then(data => data.json()).then(data => {
 		partsDataBase = data;
 	});
 };

@@ -54,10 +54,145 @@
     "rmrk": "test6"
   },
   "6": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "704",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "7": {
+    "quan": "3",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "8": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "9": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "10": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "11": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "12": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "13": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "14": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "15": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "16": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "17": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "18": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "19": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "20": {
+    "quan": "1",
+    "part": "811602-724",
+    "desc": "SPR, SHAFT ,VERTICAL FEED CLUTCH",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "21": {
     "quan": "",
     "part": "",
-    "desc": "704",
-    "lctn": "704",
+    "desc": "",
+    "lctn": "",
     "cost": "",
     "prce": "",
     "rmrk": ""
@@ -69,7 +204,22 @@
     "3",
     "4",
     "5",
-    "6"
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21"
   ],
   "parts_database_loaded": true
 }
