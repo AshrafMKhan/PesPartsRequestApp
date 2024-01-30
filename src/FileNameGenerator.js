@@ -5,6 +5,8 @@ import { formData } from './formData';
 import SavedFile from './SavedFile'
 
 function FileNameGenerator(){
+  document.refreshed = true;
+  const [list, setList] = useState(false);
   if(localStorage.getItem('router') === null)localStorage.setItem('router', '');
   const [other, setOther] = useState(false);
   const [otherModule, setOtherModule] = useState(false);
@@ -46,18 +48,21 @@ function FileNameGenerator(){
     event.preventDefault();
     setModuleSerialNumber(event.target.value);
   };
-  const createPartsList = (e) => {
+  const createPartsList = (e) => {  //put data in local storage
+    document.refreshed = false;
     e.preventDefault();
+    
     fetch('./common_parts/MX6100_Input_Hopper').then(data => data.json()).then(data => {
       localStorage.setItem('formData', JSON.stringify(data));
       localStorage.setItem('tableRows', data['listOfRows']);
+      console.log('document.refreshed: ' + document.refreshed);
 
-      const serializedBody = JSON.stringify(data);  //myDataStore.getState().formData);
+      const serializedBody = JSON.stringify(data);  
       const fetchOptions = {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
+        
       },
       body: serializedBody // (5)
       };
@@ -68,13 +73,15 @@ function FileNameGenerator(){
       fetch('/savePartsList?fileName=' + fileName, fetchOptions).then(response => {
         if(response['ok'] === false)alert('Could not save the file. An error occured')
 
-        //if(list.length === 1)setList([]);
-        //else setList([0]);
-        window.location.reload(false);  //refresh page
+        if(list.length === 1)setList([]); //rerender
+        else setList([0]);
+        //window.location.reload(false);  //refresh page
+
 
       }).catch(e => {console.log('an error occured while trying to write the file.')});
     });
-  
+    console.log('document.refreshed: ' + document.refreshed);
+
   };
 
   const handleSavePartsList = (e) => {
@@ -96,7 +103,7 @@ function FileNameGenerator(){
   const handleOpenFile = (e) => {
     localStorage.setItem('router', 'openFile')
     fetch('/getListOfPartsLists')
-      .then((res) => res.json())
+      .then((res) => {if(!res.ok)alert('could not get the list of files.');return res.json()})
       .then((data) => {
         localStorage.setItem('retrievedFiles', data['ListOfPartsLists']);
         //data['ListOfPartsLists'].forEach(file => console.log(file));
@@ -116,7 +123,7 @@ function FileNameGenerator(){
   const handleSaveFileName = (e) => {
     //console.log('renameing file')
     const fileName = (systemType + '_' + moduleType + '_' + systemSerialNumber + '_' + moduleSerialNumber).replace(/[ ]/g,'-');
-    fetch('/renameFile?currentFileName='+localStorage.getItem('currentFileName')+'&newFileName='+fileName).then(data => data.text()).then(data => {
+    fetch('/renameFile?currentFileName='+localStorage.getItem('currentFileName')+'&newFileName='+fileName).then(data => {if(!data.ok)alert('could not rename the file.');return data.text()}).then(data => {
       //console.log('file rename response: ' + data);
       localStorage.setItem('currentFileName', fileName);
       localStorage.setItem('router', 'loadTable')

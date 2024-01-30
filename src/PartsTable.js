@@ -6,11 +6,11 @@ import { isPartsAndQuantityFull } from "./formData";
 import { useState } from "react";
 
 function PartsTable(){
-	//const dispatch = useDispatch();
+
 	const [list, setList] = useState([0]);		//used for forcing rerendering
 	if(partsDataBase === undefined){
 		loadPartsDatabase();		//reload the parts lookup database if it's not loaded in memory
-		//console.log('Reloading parts database into ram')
+
 	}
 	const handleInputChange = (e) => {
 		
@@ -64,8 +64,12 @@ function PartsTable(){
 
 	
 	useEffect(()=>{
-		fillFieldsWithData();	
+		fillFieldsWithData();
+		console.log('document.refreshed: ' + document.refreshed);
+    	console.log('formData: ' + JSON.stringify(formData));	
 	});
+	console.log('document.refreshed: ' + document.refreshed);
+    console.log('formData: ' + JSON.stringify(formData));
 	
 	return (
 		<div>
