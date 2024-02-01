@@ -1,0 +1,54 @@
+{
+  "0": {
+    "quan": "1",
+    "part": "222",
+    "desc": "part not found",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "1": {
+    "quan": "2",
+    "part": "233",
+    "desc": "part not found",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "2": {
+    "quan": "2",
+    "part": "569161-001",
+    "desc": "*** PART NUMBER SUPERSEDED BY: 544910-003 ***",
+    "lctn": "Stock",
+    "cost": "$0.00 ",
+    "prce": "$0.00 ",
+    "rmrk": ""
+  },
+  "3": {
+    "quan": "3",
+    "part": "544910-003",
+    "desc": "PC ASSY, CONTROLLER, MULTI-CORE, ONE  PROCESSOR (RP)",
+    "lctn": "Stock",
+    "cost": "$3,757.14 ",
+    "prce": "$4,562.25 ",
+    "rmrk": ""
+  },
+  "4": {
+    "quan": "",
+    "part": "",
+    "desc": "",
+    "lctn": "",
+    "cost": "",
+    "prce": "",
+    "rmrk": ""
+  },
+  "listOfRows": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4"
+  ]
+}

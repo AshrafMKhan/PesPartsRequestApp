@@ -62,7 +62,7 @@ export const isPartsAndQuantityFull = () => {
 	return true;
 }
 
-export const savePartsList = (fileName) => {
+export const savePartsList = (fileName, path='saved_parts_lists/') => {
 	localStorage.setItem('formData', JSON.stringify(formData));
 	const serializedBody = JSON.stringify(formData);
 	const fetchOptions = { 
@@ -73,7 +73,7 @@ export const savePartsList = (fileName) => {
 	},
 	body: serializedBody
 	};
-	fetch('/savePartsList?fileName=' + fileName, fetchOptions).then(response => {
+	fetch('/savePartsList?fileName=' + fileName +'&path=' + path, fetchOptions).then(response => {
 		if(response['ok'] === false)alert('Could not save the file. An error occured')
 	}).catch(e => {console.log('an error occured while trying to write the file.')});
 };

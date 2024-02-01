@@ -1,5 +1,6 @@
 table, td, th {
-    border: solid green 2px;
+    border: solid green 1px;
+    border-spacing: 0px;
 }
 
 /* * {
@@ -12,3 +13,6 @@ td:hover {
     cursor: pointer;
 }
 
+input {
+    border: none;
+}
